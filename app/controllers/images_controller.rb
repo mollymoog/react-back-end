@@ -1,6 +1,9 @@
 class ImagesController < ApplicationController
   before_action :set_image, only: [:show, :update, :destroy]
 
+  # fetch images on backend side(fetch in index in rails, rest client, assign images to teams)
+
+
   # GET /images
   def index
     @images = Image.all
