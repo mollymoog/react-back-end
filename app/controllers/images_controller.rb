@@ -70,6 +70,6 @@ def fetchImages()
          newer_image.team = "team2"
       end
       newer_image.save
-      binding.pry
+      # binding.pry
   end
 end
