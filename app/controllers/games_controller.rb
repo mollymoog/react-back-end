@@ -10,21 +10,17 @@ class GamesController < ApplicationController
 
   # GET /games/1
   def show
-    @images = fetchImages
+    @game = Game.find_by_id(params[:id])
     render json: @game
   end
 
   # POST /games
   def create
-    binding.pry
     @game = Game.new(game_params)
 
     @team1 = @game.teams.build(team_name: params["name"], color: params["color"])
-    binding.pry
 
     if @game.save
-      binding.pry
-
         page_num = rand(1..40)
         num_pics = 25
         images_url = "https://picsum.photos/v2/list?page=#{page_num}&limit=#{num_pics}"
@@ -35,22 +31,17 @@ class GamesController < ApplicationController
             newer_image = @game.images.build(url: image["download_url"])
             if index.even?
                 newer_image.team_id = @team1.id
-            elsif index == 17
-                newer_image.team_id = "dead"
+            # elsif index == 17
+            #     newer_image.team_id = "dead"
             else
-               newer_image.team_id = "team2.id"
+               newer_image.team_id = 00
             end
             newer_image.save
-            binding.pry
-
         end 
-
       render json: @game, status: :created, location: @game
     else
       render json: @game.errors, status: :unprocessable_entity
     end
-    binding.pry
-
   end
 
   # PATCH/PUT /games/1
