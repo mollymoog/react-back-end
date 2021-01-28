@@ -28,15 +28,13 @@ class GamesController < ApplicationController
         data = JSON.parse(RestClient.get("#{images_url}"))
       
         data.each.with_index(1) do |image, index|
-            newer_image = @game.images.build(url: image["download_url"])
+            image = @game.images.build(url: image["download_url"])
             if index.even?
-                newer_image.team_id = @team1.id
-            # elsif index == 17
-            #     newer_image.team_id = "dead"
+                image.team_id = @team1.id
             else
-               newer_image.team_id = 00
+               image.team_id = 00
             end
-            newer_image.save
+            image.save
         end 
       render json: @game, status: :created, location: @game
     else
