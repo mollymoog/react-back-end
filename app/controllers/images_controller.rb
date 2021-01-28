@@ -6,8 +6,12 @@ class ImagesController < ApplicationController
 
   # GET /images
   def index
-    @images = Image.all
-
+    if params[:game_id]
+      @game = Game.find_by_id(params[:game_id])
+      @images = @game.images
+    else
+      @images = Image.all
+    end
     render json: @images
   end
 
