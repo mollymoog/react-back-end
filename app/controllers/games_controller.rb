@@ -22,7 +22,7 @@ class GamesController < ApplicationController
 
     if @game.save
         page_num = rand(1..40)
-        num_pics = 25
+        num_pics = 24
         images_url = "https://picsum.photos/v2/list?page=#{page_num}&limit=#{num_pics}"
       
         data = JSON.parse(RestClient.get("#{images_url}"))
@@ -32,7 +32,7 @@ class GamesController < ApplicationController
             image = @game.images.build(url: image["download_url"])
             if index.even?
                 image.team_id = @team1.id
-                image.color = @team1.color
+                image.color = "teal"
                 image.save
             else
                image.team_id = 62
